@@ -1,4 +1,4 @@
-module HealthCalc
+module HealthStats
   class BMI
     attr_accessor :height, :weight, :age, :gender
     

@@ -1,11 +1,11 @@
 $:.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
-require 'health_calc'
+require 'health_stats'
 
-describe 'HealthCalc' do
+describe 'HealthStats' do
   describe '#bmi' do
     before do
       @klass = Class.new do
-        include HealthCalc
+        include HealthStats
         attr_accessor :height, :weight
       end
     end
@@ -14,7 +14,7 @@ describe 'HealthCalc' do
       [:height, :weight].each do |attribute|
         it "should include #{attribute}" do
           @klass.send(:undef_method, attribute)
-          lambda { @klass.new.bmi }.should.raise(HealthCalc::AttributeError)
+          lambda { @klass.new.bmi }.should.raise(HealthStats::AttributeError)
         end
       end
     end
@@ -45,7 +45,7 @@ describe 'HealthCalc' do
   describe '#bmi_percentile' do
     before do
       @klass = Class.new do
-        include HealthCalc
+        include HealthStats
         attr_accessor :height, :weight, :gender, :age
       end
     end
@@ -54,7 +54,7 @@ describe 'HealthCalc' do
       [:age, :gender].each do |attribute|
         it "should include #{attribute}" do
           @klass.send(:undef_method, attribute)
-          lambda { @klass.new.bmi_percentile }.should.raise(HealthCalc::AttributeError)
+          lambda { @klass.new.bmi_percentile }.should.raise(HealthStats::AttributeError)
         end
       end
     end

@@ -18,7 +18,7 @@
 #             This routine has six digit accuracy, so it is only useful for absolute
 #             z values <= 6.  For z values > to 6.0, poz() returns 0.0.
 #
-module HealthCalc
+module HealthStats
   module Statistics
     extend self
   
