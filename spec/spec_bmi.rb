@@ -30,7 +30,7 @@ describe 'HealthStats' do
       @person.height = 61
       @person.weight = 130
       @person.gender = 'f'
-      @person.dob = Date.parse('9/27/1974')
+      @person.dob = 14.years.ago - 5.days
     end
     
     describe '#age_methods' do
@@ -42,8 +42,8 @@ describe 'HealthStats' do
       end
       
       it "should return years as integer" do
-        @person.age_in_years.should == 35
-        @person.age.should == 35
+        @person.age_in_years.should == 14
+        @person.age.should == 14
         
         @person.dob = 1.month.ago
         @person.age_in_years.should == 0
@@ -55,7 +55,7 @@ describe 'HealthStats' do
       end
       
       it "should include age in months as a float in .5 increments" do
-        @person.age_in_months.should == 422.0
+        @person.age_in_months.should == 168.0
         
         @person.dob = 1.month.ago + 2.days
         @person.age_in_months.should == 0.5
@@ -98,6 +98,8 @@ describe 'HealthStats' do
           @person.bmi_percentile.should.be.nil
         end
       end
+      
+      
     end
   end
 end
