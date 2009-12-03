@@ -7,20 +7,27 @@ describe 'HealthStats' do
   before do
     @klass = Class.new do
       include HealthStats
-      attr_accessor *REQUIRED_ATTRIBUTES
     end
   end
   
+  describe 'required attributes' do
+    REQUIRED_ATTRIBUTES.each do |attribute|
+      it "should include #{attribute}" do
+        person = @klass.new
+        lambda { person.send(attribute) }.should.raise(HealthStats::AttributeError)
+      end
+    end
+  end
+  
+  describe '#age' do
+    
+  end
+    
   describe '#bmi' do
-    describe 'required attributes' do
-      [:height, :weight].each do |attribute|
-        it "should include #{attribute}" do
-          person = @klass.new
-          person.height = 10
-          person.weight = 10
-          @klass.send(:remove_method, attribute)
-          lambda { person.bmi }.should.raise(HealthStats::AttributeError)
-        end
+    before do
+      @klass = Class.new do
+        include HealthStats
+        attr_accessor *REQUIRED_ATTRIBUTES
       end
     end
     
@@ -48,17 +55,10 @@ describe 'HealthStats' do
   end
   
   describe '#bmi_percentile' do
-    describe 'required attributes' do
-      [:dob, :gender, :height, :weight].each do |attribute|
-        it "should include #{attribute}" do
-          person = @klass.new
-          person.height = 61
-          person.weight = 130
-          person.gender = 'f'
-          person.dob = 13
-          @klass.send(:remove_method, attribute)
-          lambda { person.bmi_percentile }.should.raise(HealthStats::AttributeError)
-        end
+    before do
+      @klass = Class.new do
+        include HealthStats
+        attr_accessor *REQUIRED_ATTRIBUTES
       end
     end
     
