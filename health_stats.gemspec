@@ -20,12 +20,14 @@ Gem::Specification.new do |s|
      "README.md",
      "Rakefile",
      "VERSION",
+     "health_stats.gemspec",
      "lib/health_stats.rb",
      "lib/health_stats/age.rb",
      "lib/health_stats/bmi.rb",
      "lib/health_stats/cdc_data.rb",
      "lib/health_stats/cdc_data/bmi.rb",
      "lib/health_stats/statistics.rb",
+     "pkg/health_stats-0.0.1.gem",
      "spec/spec_health_stats.rb"
   ]
   s.homepage = %q{http://github.com/assplecake/healthdata}
