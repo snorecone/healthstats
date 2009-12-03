@@ -21,6 +21,7 @@ module HealthStats
     def age_in_years
       return if dob.nil?
       today = Date.today
+      
       if today.month > dob.month || (today.month == dob.month && today.day >= dob.day)
         today.year - dob.year
       else

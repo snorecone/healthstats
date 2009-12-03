@@ -98,16 +98,22 @@ describe 'HealthStats' do
       end
       
       it "should return nil if outside cdc date range" do
-        @person.dob == 1.month.ago
+        @person.dob = 1.month.ago
         @person.bmi_percentile.should.be.nil
         
-        @person.dob == 20.years.ago - 10.days
+        @person.dob == 20.years.ago - 10.days - 2.months
         @person.bmi_percentile.should.be.nil
       end
       
-      # it "should return percentile (precision 2)" do
-      #   @person.bmi_percentile.should == 91.02
-      # end
+      it "should return percentile (precision 2)" do
+        @person.bmi_percentile.should == 91.02
+        
+        @person.gender = 'm'
+        @person.dob = 2.years.ago - 1.month - 18.days
+        @person.weight = 14
+        @person.height = 24
+        @person.bmi_percentile.should == 66.49
+      end
     end
   end
 end
