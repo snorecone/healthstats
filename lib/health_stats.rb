@@ -3,10 +3,7 @@ module HealthStats
   RequiredAttributes = [:dob, :weight, :height, :gender]
   
   RequiredAttributes.each do |attribute|
-    define_method(attribute) do
-      message = "#{attribute} is not implemented"
-      raise HealthStats::AttributeError, message
-    end
+    define_method(attribute) { nil }
   end
 end
 

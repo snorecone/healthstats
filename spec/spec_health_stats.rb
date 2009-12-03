@@ -5,21 +5,6 @@ require 'activesupport'
 REQUIRED_ATTRIBUTES = [:height, :weight, :gender, :dob]
 
 describe 'HealthStats' do
-  describe 'required attributes' do
-    before do
-      @klass = Class.new do
-        include HealthStats
-      end
-    end
-    
-    REQUIRED_ATTRIBUTES.each do |attribute|
-      it "should include #{attribute}" do
-        person = @klass.new
-        lambda { person.send(attribute) }.should.raise(HealthStats::AttributeError)
-      end
-    end
-  end
-  
   describe 'included methods' do
     before do
       @klass = Class.new do
