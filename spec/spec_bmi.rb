@@ -15,8 +15,11 @@ describe 'HealthStats' do
     describe 'required attributes' do
       [:height, :weight].each do |attribute|
         it "should include #{attribute}" do
+          person = @klass.new
+          person.height = 10
+          person.weight = 10
           @klass.send(:remove_method, attribute)
-          lambda { @klass.new.bmi }.should.raise(HealthStats::AttributeError)
+          lambda { person.bmi }.should.raise(HealthStats::AttributeError)
         end
       end
     end
@@ -46,10 +49,15 @@ describe 'HealthStats' do
   
   describe '#bmi_percentile' do
     describe 'required attributes' do
-      [:dob, :gender].each do |attribute|
+      [:dob, :gender, :height, :weight].each do |attribute|
         it "should include #{attribute}" do
+          person = @klass.new
+          person.height = 61
+          person.weight = 130
+          person.gender = 'f'
+          person.dob = 13
           @klass.send(:remove_method, attribute)
-          lambda { @klass.new.bmi_percentile }.should.raise(HealthStats::AttributeError)
+          lambda { person.bmi_percentile }.should.raise(HealthStats::AttributeError)
         end
       end
     end

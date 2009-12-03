@@ -16,5 +16,7 @@ module HealthStats
   end
   
   def bmi_percentile
+    if bmi && dob && gender
+    end
   end
 end
