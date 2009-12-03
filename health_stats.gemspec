@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{health_stats}
-  s.version = "0.0.2"
+  s.version = "0.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Mark Martin"]
@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
      "lib/health_stats/cdc_data/bmi.rb",
      "lib/health_stats/statistics.rb",
      "pkg/health_stats-0.0.1.gem",
+     "pkg/health_stats-0.0.2.gem",
      "spec/spec_health_stats.rb"
   ]
   s.homepage = %q{http://github.com/assplecake/healthdata}
