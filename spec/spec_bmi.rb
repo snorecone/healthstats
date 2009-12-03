@@ -1,19 +1,21 @@
 $:.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
 require 'health_stats'
 
+REQUIRED_ATTRIBUTES = [:height, :weight, :gender, :dob]
+
 describe 'HealthStats' do
-  describe '#bmi' do
-    before do
-      @klass = Class.new do
-        include HealthStats
-        attr_accessor :height, :weight
-      end
+  before do
+    @klass = Class.new do
+      include HealthStats
+      attr_accessor *REQUIRED_ATTRIBUTES
     end
-    
+  end
+  
+  describe '#bmi' do
     describe 'required attributes' do
       [:height, :weight].each do |attribute|
         it "should include #{attribute}" do
-          @klass.send(:undef_method, attribute)
+          @klass.send(:remove_method, attribute)
           lambda { @klass.new.bmi }.should.raise(HealthStats::AttributeError)
         end
       end
@@ -43,17 +45,10 @@ describe 'HealthStats' do
   end
   
   describe '#bmi_percentile' do
-    before do
-      @klass = Class.new do
-        include HealthStats
-        attr_accessor :height, :weight, :gender, :age
-      end
-    end
-    
     describe 'required attributes' do
-      [:age, :gender].each do |attribute|
+      [:dob, :gender].each do |attribute|
         it "should include #{attribute}" do
-          @klass.send(:undef_method, attribute)
+          @klass.send(:remove_method, attribute)
           lambda { @klass.new.bmi_percentile }.should.raise(HealthStats::AttributeError)
         end
       end
@@ -65,10 +60,10 @@ describe 'HealthStats' do
         @person.height = 61
         @person.weight = 130
         @person.gender = 'f'
-        @person.age = 13
+        @person.dob = 13
       end
       
-      [:age, :gender].each do |attribute|
+      [:dob, :gender].each do |attribute|
         it "should return nil if #{attribute} is nil" do
           @person.send("#{attribute}=", nil)
           @person.bmi_percentile.should.be.nil

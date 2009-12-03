@@ -1,21 +1,20 @@
 module HealthStats
   AttributeError = Class.new(StandardError)
+  RequiredAttributes = [:dob, :weight, :height, :gender]
   
-  def bmi
-    unless self.respond_to?(:height) && self.respond_to?(:weight)
-      errormsg = "You must define a height and weight attribute in this class"
-      raise HealthStats::AttributeError, errormsg
+  RequiredAttributes.each do |attribute|
+    define_method(attribute) do
+      message = "#{attribute} is not implemented"
+      raise HealthStats::AttributeError, message
     end
-    
+  end
+  
+  def bmi    
     if weight && height
       (((weight * 703) * 100) / (height ** 2)) / 100.0
     end
   end
   
   def bmi_percentile
-    unless self.respond_to?(:age) && self.respond_to?(:gender)
-      errormsg = "You must define an age and gender attribute in this class"
-      raise HealthStats::AttributeError, errormsg
-    end
   end
 end
