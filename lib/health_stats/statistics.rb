@@ -89,7 +89,9 @@ module HealthStats
     def lms(x, l, m, s)
       (((x / m) ** l) - 1) / (l * s)
     end
+    
+    # puts poz(lms(25.02, -1.973763307, 19.302431312, 0.1512669735)) * 100
   end
 end
   # puts critz(0.85)
-  # puts poz(z_score_from_measurement(16.890891793, -1.850468473, 15.58176458, 0.0723060813)) * 100
+  # 

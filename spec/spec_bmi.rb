@@ -1,5 +1,6 @@
 $:.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
 require 'health_stats'
+require 'activesupport'
 
 REQUIRED_ATTRIBUTES = [:height, :weight, :gender, :dob]
 
@@ -27,8 +28,8 @@ describe 'HealthStats' do
       end
       
       @person = @klass.new
-      @person.height = 61
-      @person.weight = 130
+      @person.height = 53
+      @person.weight = 100
       @person.gender = 'f'
       @person.dob = 14.years.ago - 5.days
     end
@@ -84,10 +85,7 @@ describe 'HealthStats' do
       end
     
       it 'should return the correct bmi (precision 2)' do
-        person = @klass.new
-        person.weight = 130
-        person.height = 61
-        person.bmi.should == 24.56
+        @person.bmi.should == 25.02
       end
     end
   
@@ -99,7 +97,17 @@ describe 'HealthStats' do
         end
       end
       
+      it "should return nil if outside cdc date range" do
+        @person.dob == 1.month.ago
+        @person.bmi_percentile.should.be.nil
+        
+        @person.dob == 20.years.ago - 10.days
+        @person.bmi_percentile.should.be.nil
+      end
       
+      # it "should return percentile (precision 2)" do
+      #   @person.bmi_percentile.should == 91.02
+      # end
     end
   end
 end
