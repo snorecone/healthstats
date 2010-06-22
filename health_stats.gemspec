@@ -5,18 +5,19 @@
 
 Gem::Specification.new do |s|
   s.name = %q{health_stats}
-  s.version = "0.0.3"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Mark Martin"]
-  s.date = %q{2009-12-03}
+  s.date = %q{2010-06-22}
   s.email = %q{assplecake@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
      "README.md"
   ]
   s.files = [
-    "LICENSE",
+    ".gitignore",
+     "LICENSE",
      "README.md",
      "Rakefile",
      "VERSION",
@@ -26,15 +27,16 @@ Gem::Specification.new do |s|
      "lib/health_stats/bmi.rb",
      "lib/health_stats/cdc_data.rb",
      "lib/health_stats/cdc_data/bmi.rb",
+     "lib/health_stats/cdc_data/height.rb",
+     "lib/health_stats/cdc_data/weight.rb",
+     "lib/health_stats/percentile.rb",
      "lib/health_stats/statistics.rb",
-     "pkg/health_stats-0.0.1.gem",
-     "pkg/health_stats-0.0.2.gem",
      "spec/spec_health_stats.rb"
   ]
   s.homepage = %q{http://github.com/assplecake/healthdata}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.7}
   s.summary = %q{Convenience methods for age, bmi, bmi percentile}
   s.test_files = [
     "spec/spec_health_stats.rb"
@@ -44,7 +46,7 @@ Gem::Specification.new do |s|
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
-    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<activesupport>, [">= 2.3"])
     else
       s.add_dependency(%q<activesupport>, [">= 2.3"])
