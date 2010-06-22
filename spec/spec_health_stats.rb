@@ -1,6 +1,6 @@
 $:.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
 require 'health_stats'
-require 'activesupport'
+require 'active_support/all'
 
 REQUIRED_ATTRIBUTES = [:height, :weight, :gender, :dob]
 
@@ -74,30 +74,46 @@ describe 'HealthStats' do
       end
     end
   
-    describe '#bmi_percentile' do    
+    describe '#percentile_for_age' do    
       [:dob, :gender].each do |attribute|
         it "should return nil if #{attribute} is nil" do
           @person.send("#{attribute}=", nil)
-          @person.bmi_percentile.should.be.nil
+          @person.percentile_for_age(:bmi).should.be.nil
         end
       end
       
       it "should return nil if outside cdc date range" do
         @person.dob = 1.month.ago
-        @person.bmi_percentile.should.be.nil
+        @person.percentile_for_age(:bmi).should.be.nil
         
         @person.dob == 20.years.ago - 10.days - 2.months
-        @person.bmi_percentile.should.be.nil
+        @person.percentile_for_age(:bmi).should.be.nil
       end
       
-      it "should return percentile (precision 2)" do
-        @person.bmi_percentile.should == 91.02
+      it "should return percentile for bmi (precision 2)" do
+        @person.percentile_for_age(:bmi).should == 91.02
         
         @person.gender = 'm'
         @person.dob = 2.years.ago - 1.month - 18.days
         @person.weight = 14
         @person.height = 24
-        @person.bmi_percentile.should == 66.49
+        @person.percentile_for_age(:bmi).should == 66.49
+      end
+      
+      it "should return percentile for weight (precision 2)" do        
+        @person.gender = 'm'
+        @person.dob = 5.years.ago - 1.month - 18.days
+        @person.weight = 40
+        @person.height = 44
+        @person.percentile_for_age(:weight).should == 41.16
+      end
+      
+      it "should return percentile for height (precision 2)" do        
+        @person.gender = 'm'
+        @person.dob = 5.years.ago - 1.month - 18.days
+        @person.weight = 40
+        @person.height = 44
+        @person.percentile_for_age(:height).should == 66.88
       end
     end
   end
